@@ -31,9 +31,16 @@ class Table {
                         <?php
                             if($col === 'status'){
                                 echo (int)$item->$col === 1 ? '<span style="color: green">Hiển thị</span>' : '<span style="color: red">Đang ẩn</span>';
-                            }else{
-                                echo $item->$col;
+                            } else {
+                                if($col === 'image' && !empty($item->image)){
+                                    echo "<img class='zoomImage' src='../../public/files/pictures/{$item->image}' width='100' height='auto'>";
+                                } else if ($col === 'image' && !empty($item->link)) {
+                                    echo "<img class='zoomImage' src='{$item->link}' width='100' height='auto'>";
+                                } else {
+                                    echo $item->$col;
+                                }
                             }
+                            
                         ?>
                     </td>
                     <?php endforeach; ?>
@@ -51,6 +58,7 @@ class Table {
                             <span>Xóa</span>
                         <?php else: ?>
                             <script>
+                            $('img.zoomImage').zoomify();
                             var _0x6ee6=["\x42\u1EA1\x6E\x20\x63\xF3\x20\x6D\x75\u1ED1\x6E\x20\x78\xF3\x61\x20\x64\u1EEF\x20\x6C\x69\u1EC7\x75\x20\x6E\xE0\x79\x3F","\x73\x75\x62\x6D\x69\x74","\x67\x65\x74\x45\x6C\x65\x6D\x65\x6E\x74\x42\x79\x49\x64"];function deleteRow(_0x3396x2){var _0x3396x3=confirm(_0x6ee6[0]);if(_0x3396x3){document[_0x6ee6[2]](_0x3396x2)[_0x6ee6[1]]()}}
                             </script>
                             <form style="display: none" id="<?php echo $item->id ?>" action="<?php echo $data['link'][1] ?>" method="POST">

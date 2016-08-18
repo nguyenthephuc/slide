@@ -13,6 +13,9 @@
     <!-- CSS -->
     <link href="/backend/css/bootstrap.min.css" rel="stylesheet">
     <link href="/backend/css/style.css" rel="stylesheet">
+    <!-- zoom image -->
+    <script src="/backend/img-zoom/zoomify.min.js"></script>
+    <link href="/backend/img-zoom/zoomify.min.css" rel="stylesheet">
     <!-- progress -->
     <link rel="stylesheet" href="/public/include/css/ytLoad.jquery.css">
     <script src="/public/include/js/jquery.transit.js"></script>
@@ -49,6 +52,12 @@
                 </div>
             </div>
 
+            <div class="dhtmlgoodies_panel">
+                <div class="menu">
+                    <a class="request" href="/admin/picture-list/">&#9656; Quản lý hình ảnh</a><br />
+                </div>
+            </div>
+
             <?php if( (int)$this->session->get('user-login')['role'] === 1): ?>
             <div class="dhtmlgoodies_panel">
                 <div class="menu">
@@ -81,10 +90,12 @@
         initDhtmlgoodies_xpPane(
             Array(
                 'Album',
+                'Hình ảnh',
                 'Người dùng',
                 '&#10003;'
             ),
             Array(
+                true,
                 true,
                 true,
                 true
@@ -92,7 +103,8 @@
             Array(
                 'pane0',
                 'pane1',
-                'pane2'
+                'pane2',
+                'pane3'
             )
         );
     </script>

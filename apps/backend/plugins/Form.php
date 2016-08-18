@@ -27,7 +27,7 @@ class Form
                 $code = "";
                 foreach ($data as $key => $value) {
                     $checked = ( isset($arr["checked"]) && $arr["checked"] == $key ) ? "checked=\"checked\"" : "";
-                    $code .= "<label><input type=\"radio\" name=\"".$name."\" value=\"".$key."\" ".$checked.">".$value."</label> ";
+                    $code .= "<label><input type=\"radio\" name=\"".$name."\" value=\"".$key."\" ".$checked.">".$value."</label> <br>";
                 }
                 return $code;
             }

@@ -4,11 +4,6 @@ namespace Multiple\Backend\Models;
 
 class User extends ModelBase
 {
-    public function getSource()
-    {
-        return 'user';
-    }
-
     public static function insert($params)
     {
         $obj = new self;

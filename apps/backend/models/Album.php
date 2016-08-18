@@ -1,6 +1,7 @@
 <?php
 namespace Multiple\Backend\Models;
 use \Phalcon\Mvc\Model\Query\Builder as Builder;
+
 class Album extends ModelBase
 {
     public static function getData()

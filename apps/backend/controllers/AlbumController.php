@@ -2,6 +2,7 @@
 namespace Multiple\Backend\Controllers;
 use Phalcon\Paginator\Adapter\Model as PaginatorModel;
 use Multiple\Backend\Models\Album;
+use Multiple\Backend\Models\Picture;
 use Multiple\Backend\Plugins\Validator;
 
 class AlbumController extends ControllerBase
@@ -31,7 +32,7 @@ class AlbumController extends ControllerBase
 
     public function formAction($id)
     {
-        $title = empty($id) ? 'Thêm tài khoản mới' : 'Cập nhật thông tin tài khoản';
+        $title = empty($id) ? 'Thêm album' : 'Cập nhật thông tin album';
         $action = empty($id) ? '/admin/album-insert' : '/admin/album-update';
         $data = ($id !== '') ? Album::findFirstById($id) : '';
         $this->view->data = $data;
@@ -87,15 +88,9 @@ class AlbumController extends ControllerBase
                     array('Ngày tạo album', $params['created'], 'require'),
                     array('Tác giả album', $params['author'], 'require'),
                 ));
-            if( User::findFirst( array('conditions'=>'id <> ?1 and username = ?2', 'bind'=>array(1=>$params['id'], 2=>$params['username'])) ) )
-                $err['username'] = 'Tài khoản đã tồn tại\n';
             Validator::errorback($err);
-            if($params['pass'] !== '')
-                $params['pass'] = $this->security->hash($params['pass']);
-            else
-                unset($params['pass']);
-            User::updated($params['id'], $params);
-            return $this->response->redirect('/admin/user-list/');
+            Album::updated($params['id'], $params);
+            return $this->response->redirect('/admin/album-list/');
         }
     }
 
@@ -108,10 +103,13 @@ class AlbumController extends ControllerBase
             ));
         } else {
             $id = $this->request->getPost('id', 'int', '');
-            $user = User::findFirstById($id);
-            if($user)
-                $user->delete();
-            return $this->response->redirect('/admin/user-list/');
+            $album = Album::findFirstById($id);
+            if($album) {
+                $picture = Picture::find(array("id_album = $id"))->toArray();
+                if(count($picture) > 0) Validator::errorback(array("Album này đang chứa rất nhiều hình bạn không được phép xóa nó"));
+                $album->delete();
+            }
+            return $this->response->redirect('/admin/album-list/');
         }
     }
 }

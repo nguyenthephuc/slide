@@ -1,0 +1,91 @@
+<form action="<?php echo $action ?>" method="POST" role="form" style="width: 50%; border: 1px solid #ddd; padding: 10px" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">Hình ảnh của album</label>
+                <?php
+                    $selected = ($data) ? $data->id_album : '';
+                    $options = array(
+                                    'name'    =>'id_album',
+                                    'default' =>'--chọn album--',
+                                    'data'    =>$dataAlbum,
+                                    'class'   =>'form-control',
+                                    'selected'=>$selected
+                                    );
+                    echo Multiple\Backend\Plugins\Form::select($options);
+                ?>
+            </div>
+        </div>
+         <div class="col-md-6">
+            <div class="form-group">
+                <label for="">Caption cho hình ảnh</label>
+                <input type="text" class="form-control" name="caption" value="<?php echo ($data) ? $data->caption : '' ?>">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">Hình ảnh từ</label>
+                    <div class="radio">
+                    <?php
+                        if($data) {
+                            $checked = ($data->image) ? 1 : 2;
+                        } else {
+                            $checked = '1';
+                        }
+                        $options = array(
+                                        'name'   =>'imageType',
+                                        'data'   =>['1'=>'Từ máy của bạn', '2'=>'Từ nguồn khác'],
+                                        'checked'=>$checked
+                                        );
+                        echo Multiple\Backend\Plugins\Form::radio($options);
+                    ?>
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="">Nhập hình ảnh</label>
+                <div id="idForLink"><input type="text" name="link" class="form-control" value="<?php echo ($data) ? $data->link : '' ?>" placeholder="http://images-name.jpg"></div>
+                <div id="idForImage">
+                    <?php
+                        $src = ($data && $data->image) ? '../'.$uploadPath.$data->image : '';
+                        $options = array(
+                                        'name'  =>'image',
+                                        'class' =>'form-control',
+                                        'remove'=>false,
+                                        'src'   =>$src
+                                        );
+                        echo Multiple\Backend\Plugins\Form::image($options);
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" name="id" value="<?php echo ($data) ? $data->id : '' ?>">
+    <input type="hidden" name="created" value="<?php echo ($data) ? $data->created : date('Y-m-d') ?>">
+    <button type="submit" class="btn btn-default">Lưu lại</button>
+</form>
+
+<script>
+    function checkImageType(){
+        var selected = parseInt(jQuery('input[type=radio][name=imageType]:checked').val());
+        if(selected === 1) {
+            jQuery('div#idForImage').show();
+            jQuery('div#idForLink').hide();
+        } else if(selected  === 2) {
+            jQuery('div#idForImage').hide();
+            jQuery('div#idForLink').show();
+        }
+    }
+
+    jQuery(document).ready(function() {
+        checkImageType();
+        jQuery('input[type=radio][name=imageType]').change(function(){
+            checkImageType();
+        })
+    });
+</script>
