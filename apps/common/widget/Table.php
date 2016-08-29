@@ -48,7 +48,7 @@ class Table {
                     <?php if (isset($data['addCol']['content'])): ?>
                             <?php foreach ($data['addCol']['content'] as $title => $link): ?>
                             <td>
-                                <a href="<?php echo $link.$item->id?>"><?php echo $title?></a>
+                                <a target="_blank" href="<?php echo $link.$item->id.'/'.$item->alias.'.html' ?>"><?php echo $title?></a>
                             </td>
                             <?php endforeach; ?>
                     <?php endif;?>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title><?php echo $infomation->name ?></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="shortcut icon" href="/backend/images/favicon.png">
+        <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+        <link rel="stylesheet" href="/assets/css/main.css" />
+        <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+        <noscript><link rel="stylesheet" href="/assets/css/noscript.css" /></noscript>
+    </head>
+    <body class="is-loading-0 is-loading-1 is-loading-2">
+        <!-- Main -->
+            <div id="main">
+
+                <!-- Header -->
+                    <header id="header">
+                        <h1><?php echo $infomation->name ?></h1>
+                        <p>Ngày đăng: <?php echo $infomation->created ?></p>
+                        <ul class="icons">
+                            <li><a href="#" class="icon fa-facebook"><span class="label">Github</span></a></li>
+                            <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+                        </ul>
+                    </header>
+
+                <!-- Thumbnail -->
+                    <input type="hidden" id="keepPage" value="1">
+                    <script type="text/javascript">
+                        var arrID = [];
+                        var arrSrc = [];
+                    </script>
+                    <section id="thumbnails">
+                        <?php foreach($data as $pic): ?>
+                        <article>
+                            <?php if($pic->image): ?>
+                                <a class="thumbnail" href="/files/pictures/<?php echo $pic->image ?>" data-position="left center"><img id="image<?php echo $pic->id ?>" src="/files/pictures/<?php echo $pic->image ?>" alt="<?php echo $pic->caption ?>" /></a>
+                            <?php elseif($pic->link): ?>
+                                <a class="thumbnail" href="<?php echo $pic->link ?>" data-position="left center"><img class="lazy" src="/assets/loading.gif" id="image<?php echo $pic->id ?>" alt="<?php echo $pic->caption ?>" /></a>
+                            <?php endif; ?>
+                            <script>
+                                arrID.push("image<?php echo $pic->id ?>");
+                                arrSrc.push("<?php echo $pic->link ?>");
+                            </script>
+                            <h2><?php echo $pic->name ?></h2>
+                            <p><?php echo $pic->caption ?></p>
+                        </article>
+                        <?php endforeach; ?>
+                    </section>
+                    <center>
+                        <a href="">Back</a>
+                        <a href="">Next</a>
+                    </center>
+                <!-- Footer -->
+                    <footer id="footer">
+                        <ul class="copyright">
+                            <li>&copy; ThePhuc.</li><li>Design: <a href="">HTML5</a>.</li>
+                        </ul>
+                    </footer>
+
+            </div>
+
+            <!-- Scripts -->
+            <script src="/assets/js/jquery.min.js"></script>
+            <script src="/assets/js/skel.min.js"></script>
+            <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+            <script src="/assets/js/main.js"></script>
+            <script>
+                    setTimeout(function(){
+                        for (var i = 0; i < arrID.length; i++) {
+                            (function(i){
+                                setTimeout(function(){
+                                    var id = arrID[i];
+                                    var image = document.getElementById(id);
+                                    image.src = arrSrc[i];
+                                },100 + i * 50)
+                            }(i))
+                        }
+                    },100)
+            </script>
+    </body>
+</html>

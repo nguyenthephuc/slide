@@ -1,18 +1,11 @@
 <?php
 namespace Multiple\Frontend\Controllers;
-use Multiple\Frontend\Models\User;
 
 class IndexController extends ControllerBase
 {
 
 	public function indexAction()
 	{
-        $data = User::find();
-        $this->view->data = $data;
+        return $this->response->redirect('/albums/1/fds-12-dsds');
 	}
-
-    public function testAction()
-    {
-        echo \Phalcon\Version::get();
-    }
 }

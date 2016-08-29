@@ -64,7 +64,7 @@ class Module
                 "host" => "localhost",
                 "username" => "root",
                 "password" => "",
-                "dbname" => "dbphalcon",
+                "dbname" => "dbslide",
                 "charset"=>"utf8",
                 "options" => array(
                     \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
