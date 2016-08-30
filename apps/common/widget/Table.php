@@ -40,7 +40,6 @@ class Table {
                                     echo $item->$col;
                                 }
                             }
-                            
                         ?>
                     </td>
                     <?php endforeach; ?>

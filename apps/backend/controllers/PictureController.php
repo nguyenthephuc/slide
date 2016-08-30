@@ -81,7 +81,6 @@ class PictureController extends ControllerBase
             }
             $err = Validator::validate(array(
                     array('Tên Album',        $params['id_album'],    'require'),
-                    //array('Caption hình ảnh', $params['caption'], 'require'),
                     array('Ngày tạo album',   $params['created'], 'require')
                 ));
             Validator::errorback(array_merge($err, $myErr));
@@ -101,7 +100,7 @@ class PictureController extends ControllerBase
             $params = [];
             $params['id']       = trim($this->request->getPost('id', 'int', ''));
             $params['id_album'] = trim($this->request->getPost('id_album', 'int', ''));
-            //$params['caption']  = trim($this->request->getPost('caption', 'string', ''));
+            $params['caption']  = trim($this->request->getPost('caption', 'string', ''));
             $params['created']  = trim($this->request->getPost('created', 'string', ''));
             $imageType          = trim($this->request->getPost('imageType', 'int', ''));
             $myErr = array();
@@ -124,7 +123,6 @@ class PictureController extends ControllerBase
             }
             $err = Validator::validate(array(
                     array('Tên Album',        $params['id_album'],    'require'),
-                    array('Caption hình ảnh', $params['caption'], 'require'),
                     array('Ngày tạo album',   $params['created'], 'require')
                 ));
             Validator::errorback(array_merge($err, $myErr));
